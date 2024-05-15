@@ -1,0 +1,43 @@
+SHELL :=  /bin/bash
+FLAG =-Wall -Wextra -Werror
+FILE=*.txt
+CHECK=2>&1 valgrind --tool=memcheck --leak-check=yes --leak-check=full --show-leak-kinds=all
+
+all: s21_grep tests
+s21_grep:
+	gcc $(FLAG) s21_grep.c -o s21_grep
+
+rebuild:
+	make clean
+	make s21_grep
+
+tests:
+	#-diff <(./s21_grep He $(FILE)) <(grep He $(FILE))
+	#-diff <(./s21_grep -e sl $(FILE)) <(grep -e sl $(FILE))
+	#-diff <(./s21_grep -v $(FILE)) <(grep -v $(FILE))
+	#-diff <(./s21_grep -i He $(FILE)) <(grep -i He $(FILE))
+	#-diff <(./s21_grep -c sl $(FILE)) <(grep -c sl $(FILE))
+	#-diff <(./s21_grep -l sl $(FILE)) <(grep -l sl $(FILE))
+	#-diff <(./s21_grep -n sl $(FILE)) <(grep -n sl $(FILE))
+	#-diff <(./s21_grep -s he $(FILE)) <(grep -s he $(FILE))
+	#-diff <(./s21_grep -o he $(FILE)) <(grep -o he $(FILE))
+	#-diff <(./s21_grep -h he $(FILE)) <(grep -h he $(FILE))
+	#-diff <(./s21_grep -iv he $(FILE)) <(grep -iv he $(FILE))
+	#-diff <(./s21_grep -in he $(FILE)) <(grep -in he $(FILE))
+	#-diff <(./s21_grep -ie "^he" $(FILE)) <(grep -ie "^he" $(FILE))
+	#-diff <(./s21_grep -ince "^he" $(FILE)) <(grep -ince "^he" $(FILE))
+	#-diff <(./s21_grep -lh sl $(FILE)) <(grep -lh sl $(FILE))
+	#-diff <(./s21_grep -e He -e he $(FILE)) <(grep -e He -e he $(FILE))
+	#-diff <(./s21_grep -f pattern.reg $(FILE)) <(grep -f pattern.reg $(FILE))
+	#-diff <(./s21_grep -ohf pattern.reg $(FILE)) <(grep -ohf pattern.reg $(FILE))
+	#-diff <(./s21_grep -oinc he $(FILE)) <(grep -oinc he $(FILE))
+	#-diff <(./s21_grep -oc he $(FILE)) <(grep -oc he $(FILE))
+	#-diff <(./s21_grep -iv he $(FILE)) <(grep -iv he $(FILE))
+	#-diff <(./s21_grep -oi he $(FILE)) <(grep -oi he $(FILE))
+	#-diff <(./s21_grep -ocl he $(FILE)) <(grep -ocl he $(FILE))
+	#-diff <(./s21_grep -oihln -e He -e he -f pattern.reg $(FILE)) <(grep -oihln -e He -e he -f pattern.reg $(FILE))
+
+
+clean:
+	rm -rf *.o
+	rm -rf s21_grep
